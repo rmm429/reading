@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Reading Speed and Comprehension</title>
+
+    <!---
+    ***UNCOMMENT AND SET SRC WHEN TESTING***
+
+    <script src="HIDDEN"></script>
+    -->
+
+
+	<meta name="author" content="Richard Mangerie">
+	<meta name="Description" content="Reading Speed and Comprehension">
+
+	<!-- This will make the website mobile-optimized -->
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <style>
+
+        button {
+            border: 2px solid black;
+            background-color: lightslategray;
+            padding: 14px 28px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        select {
+            border: 2px solid black;
+            padding: 14px 28px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .disabled {
+            color: gray;
+            cursor: not-allowed;
+        }
+
+        .full {
+            display: block;
+            width: 100%;
+        }
+
+        .half {
+            width: 49%;
+        }
+
+        .left {
+            float: left;
+        }
+
+        .right {
+            float: right;
+        }
+
+        .side-by-side:after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .question, .choice_content {
+            display: block;
+        }
+
+        .question_number, .question_prompt, .choice_letter, .choice {
+            display: inline-block;
+        }
+
+        input[type=radio], input.radio {
+            vertical-align: middle;
+            cursor: pointer;
+        }
+    
+    </style>
+    
+    <script>
+
+        var L1_innerHTML = `By the 1880s, the U.S. government had confined almost all of the Native American population on reservations, usually on land that was so resource-poor the White man couldn't imagine a use for it himself.\u00A0\u00A0In addition, whatever rations and supplies had been guaranteed to the Indians by various agreements and treaties were of poor quality, if they arrived at all, and graft and corruption were rampant in the Indian Bureau.\u00A0\u00A0In order to alleviate this problem, the government tried to recruit Quakers to take positions as Indian agents, but not enough responded to the call; that effort, however, opened the door for other religious denominations to set up shop on the reservations, and an attempt was made to convert the Indians to Christianity, with mixed results.
+        <br><br>
+        As of 1890, conditions were so bad that the situation was unquestionably ripe for a major uprising of some sort to develop among the Indian populations; such a movement found its origin with Wovoka, a Paiute Indian, who announced that he was the messiah come to earth to prepare the Indians for their salvation.\u00A0\u00A0Representatives from tribes all over the country came to Nevada to meet with Wovoka and learn to dance what he called the Ghost Dance and to sing Ghost Dance songs.\u00A0\u00A0His followers believed those who were sick would be cured by joining in the dance and by losing consciousness in the process, and the songs would summon the power of the Great Spirit, allowing them to see and to talk with those who had died.
+        <br><br>
+        Wovoka also spoke of a prophecy that foretold that the following spring, when the grass was high, the earth would be covered with new soil, burying all the White men.\u00A0\u00A0The new soil would be covered with sweet grass, running water, and trees; the great herds of buffalo and wild horses would return, and all Indians who danced the Ghost Dance would be taken up into the air and suspended there while the new earth was being laid down.\u00A0\u00A0Then they would be replaced there, with the ghosts of their ancestors, on the new earth.\u00A0\u00A0Only Indians would remain.
+        <br><br>
+        As the number of people involved in the Ghost Dance movement increased, the panic and hysteria of the Indian agents increased with it.\u00A0\u00A0An agent named McLaughlin telegraphed Washington, blaming the Indian chief Sitting Bull as the power behind this "pernicious system of religion," and asking for troops.\u00A0\u00A0Panicky messages about Indians dancing in the snow, wild and crazy, were sent, as well.\u00A0\u00A0Amid the frenzy, there was only one voice of sanity, that of former agent Valentine McGillicuddy, who recommended allowing the dances to continue.
+        <br><br>
+        Nevertheless, on December 12, the order came to arrest Sitting Bull, and, on December 15, forty-three Indian police surrounded Sitting Bull's cabin before dawn, backed up by a squadron of cavalry.\u00A0\u00A0Shooting broke out, and many Indian policemen died before the U.S. cavalry arrived to quell the fighting, precipitating the events that followed at Wounded Knee.`;
+
+
+        var L2_innerHTML = `Although you may not recognize his name, you are probably well acquainted with many of his innovations.\u00A0\u00A0Dean Kamen is an American inventor who holds over 35 U.S. patents for his revolutionary devices.
+        <br><br>
+        Many of those devices are medically oriented.\u00A0\u00A0For example, he developed the portable medical infusion pump, which allows patients to receive medications, such as antibiotics and insulin, while outside a hospital.\u00A0\u00A0It also gives pregnant women with diabetes a newfound freedom, helping them to carry and deliver their babies with greater ease and safety.\u00A0\u00A0He also came up with the portable kidney dialysis machine.\u00A0\u00A0Now patients can perform routine dialysis while at home and asleep, rather than having to check into a hospital or other treatment center every time.\u00A0\u00A0A third medical invention is a device known as an intravascular stent; it holds open blocked arteries after a patient undergoes an angioplasty or similar procedure.
+        <br><br>
+        Some of his inventions are targeted toward transportation.\u00A0\u00A0For example, he designed the iBot, a wheelchair that uses gyroscopes and computers for movement and stability.\u00A0\u00A0The user "wears" the device at all times, allowing for increased mobility (it can even climb stairs), as well as improved social interaction (the user can "stand" to greet people or to shake hands).\u00A0\u00A0The Segway, his new personal vehicle designed for all types of users, may well revolutionize how we move around.
+        <br><br>
+        In addition to his many devices, Kamen has also founded an educational learning center for children.\u00A0\u00A0It is called Science Enrichment Encounters (or SEE).\u00A0\u00A0Another of his centers, FIRST (For the Inspiration and Recognition of Science and Technology), has a yearly robot competition for high school students.`;
+
+
+        var L3_innerHTML = `A theremin is an electronic musical instrument, one based on the theory of beat frequencies, which is a way of tuning an instrument to a stable reference tone.\u00A0\u00A0If a played tone is not in tune with a reference tone of the same frequency, there is a recognizable pulse, or beat, until the two tones are brought together.\u00A0\u00A0The greater the number of pulses, the greater the time lag until the tones merge.
+        <br><br>
+        The theremin uses an electronic oscillator to produce a stable reference tone, one most often in the low radio frequency range and therefore outside the human range of hearing.\u00A0\u00A0It contains another electronic oscillator that is initially in tune with the reference pulse, but which has a variable frequency controlled by the proximity of the hand to a sensing element, usually an antenna.\u00A0\u00A0The difference between the two frequencies produces a pitch that falls in the audible range; this pitch is then detected by the antenna and amplified.\u00A0\u00A0The musician takes advantage of the amplification process by moving his hand closer to and farther away from the sensing element to create different musical tones, altering the quality of the sound by a complex series of additional movements.
+        <br><br>
+        The theremin is the invention of Lev Sergeivitch Termen (also spelled Theremin), who was born in St. Petersburg, Russia in 1896.\u00A0\u00A0Originally trained as a physicist, while working for the Russian government on alarm devices in 1919, he created a device that produced a whistle that changed in a predictable way with the proximity of an approaching body.\u00A0\u00A0Experimenting with the device, he found that he could play recognizable melodies by varying the distance of his hand (or other body part) by discrete amounts from the alarm's sensor.\u00A0\u00A0Theremin was granted a U.S. patent in 1928 for the "thereminvox," as it was then called, and it was commercially licensed by the electronics company RCA that same year.
+        <br><br>
+        The theremin is unique among musical instruments in that it can be played without being touched in any way.\u00A0\u00A0It has been used in settings as widely varied as motion picture soundtracks (such as "The Day the Earth Stood Still"), rock music (most notably the Beach Boys' "Good Vibrations"), and as a serious solo instrument.`;
+
+        var doneReading_innerHTML = "<b>Complete the quiz below</b>";
+
+        var start_btn, done_btn, cancel_btn, readingText_p, level_select, age_select, quiz_div, Q1_prompt, choice_1a, choice_1b, choice_1c, Q2_prompt, choice_2a, choice_2b, choice_2c, Q3_prompt, choice_3a, choice_3b, choice_3c, Q4_prompt, choice_4a, choice_4b, choice_4c, quiz_radio_1, quiz_radio_2, quiz_radio_3, quiz_radio_4, submit_btn, results_div, age_p, level_p, words_p, time_p, wpm_p, correct_p, ewpm_p, collected_p, age_mode_p, wpm_avg_p, comprehension_avg_p, ewpm_avg_p;
+
+        var level, age, startTime, doneTime, elapsedTime, time, minutes, seconds, words, wpm, correct, percentCorrect, ewpm;
+
+        var L1_answers = ["a", "b", "a", "c"];
+        var L2_answers = ["b", "a", "b", "a"];
+        var L3_answers = ["b", "c", "c", "b"];
+
+        /*
+        ***UNCOMMENT AND SET SRC WHEN TESTING***
+        
+        var insert_php = "HIDDEN";
+        var select_php = "HIDDEN";
+        var config_php = "HIDDEN";
+        */
+
+        window.onload = function() {
+
+            //Checking to see if this website was accessed by a blocked IP Address
+            isBlocked();
+
+            start_btn = document.getElementById("start_btn");
+            done_btn = document.getElementById("done_btn");
+            cancel_btn = document.getElementById("cancel_btn");
+            readingText_p = document.getElementById("readingText_p");
+            level_select = document.getElementById("level_select");
+            age_select = document.getElementById("age_select");
+            quiz_div = document.getElementById("quiz_div");
+            Q1_prompt = document.getElementById("Q1_prompt");
+            choice_1a = document.getElementById("choice_1a");
+            choice_1b = document.getElementById("choice_1b");
+            choice_1c = document.getElementById("choice_1c");
+            Q2_prompt = document.getElementById("Q2_prompt");
+            choice_2a = document.getElementById("choice_2a");
+            choice_2b = document.getElementById("choice_2b");
+            choice_2c = document.getElementById("choice_2c");
+            Q3_prompt = document.getElementById("Q3_prompt");
+            choice_3a = document.getElementById("choice_3a");
+            choice_3b = document.getElementById("choice_3b");
+            choice_3c = document.getElementById("choice_3c");
+            Q4_prompt = document.getElementById("Q4_prompt");
+            choice_4a = document.getElementById("choice_4a");
+            choice_4b = document.getElementById("choice_4b");
+            choice_4c = document.getElementById("choice_4c");
+            quiz_radio_1 = document.getElementsByName("1");
+            quiz_radio_2 = document.getElementsByName("2");
+            quiz_radio_3 = document.getElementsByName("3");
+            quiz_radio_4 = document.getElementsByName("4");
+            submit_btn = document.getElementById("submit_btn");
+            results_div = document.getElementById("results_div");
+            age_p = document.getElementById("age_p");
+            level_p = document.getElementById("level_p");
+            words_p = document.getElementById("words_p");
+            time_p = document.getElementById("time_p");
+            wpm_p = document.getElementById("wpm_p");
+            correct_p = document.getElementById("correct_p");
+            ewpm_p = document.getElementById("ewpm_p");
+            collected_p = document.getElementById("collected_p");
+            age_mode_p = document.getElementById("age_mode_p");
+            wpm_avg_p = document.getElementById("wpm_avg_p");
+            comprehension_avg_p = document.getElementById("comprehension_avg_p");
+            ewpm_avg_p = document.getElementById("ewpm_avg_p");
+
+        }
+
+        window.onbeforeunload = function() {
+
+            //Checking to see if this website was accessed by a blocked IP Address
+            isBlocked();
+            
+        }
+
+        $(function(){
+
+            var $select = $(".13-99");
+
+            for (i=13;i<=99;i++){
+                $select.append($('<option></option>').val(i).html(i))
+            }
+
+        });
+
+        function isBlocked() {
+
+            $.ajax({
+
+                type: "post",
+                url: config_php,
+                success: function(msg) {
+
+                    //If this website was accessed by a blocked IP Address
+                    if (msg == "ACCESS DENIED!  You are permanently banned from accessing any resources on this domain!") {
+                        //Display an access denied message
+                        $("body").html(msg);
+                    }
+
+                }
+
+            });
+
+        }
+        
+        function start() {
+
+            level = "";
+            age = "";
+
+            if (age_select.value != "NONE") {
+
+                age = age_select.value;
+                age_p.innerHTML += age;
+
+                switch (level_select.value) {
+                    
+                    case "L1":
+
+                        var level_value = level_select.value;
+                        level_p.innerHTML += level_value;
+                        level = parseInt( level_value[level_value.length - 1] );
+
+                        words = wordCount(L1_innerHTML);
+                        words_p.innerHTML += words;
+
+                        readingText_p.style.color = "black";
+                        readingText_p.innerHTML = L1_innerHTML;
+
+                        start_btn.disabled = true;
+                        start_btn.style.color = "gray";
+                        start_btn.style.cursor = "not-allowed";
+
+                        level_select.disabled = true;
+                        level_select.style.color = "gray";
+                        level_select.style.cursor = "not-allowed";
+
+                        age_select.disabled = true;
+                        age_select.style.color = "gray";
+                        age_select.style.cursor = "not-allowed";
+
+                        done_btn.disabled = false;
+                        done_btn.style.color = "black";
+                        done_btn.style.cursor = "pointer";
+
+                        cancel_btn.disabled = false;
+                        cancel_btn.style.color = "black";
+                        cancel_btn.style.cursor = "pointer";
+
+                        Q1_prompt.innerHTML = "The U.S. government had confined the Native American population by";
+                        choice_1a.innerHTML = "the 1850s.";
+                        choice_1b.innerHTML = "the 1870s.";
+                        choice_1c.innerHTML = "the 1880s.";
+
+                        Q2_prompt.innerHTML = "The government tried to recruit ________ to take positions as agents.";
+                        choice_2a.innerHTML = "missionaries";
+                        choice_2b.innerHTML = "Quakers";
+                        choice_2c.innerHTML = "Paiutes";
+
+                        Q3_prompt.innerHTML = "Who announced that he was the messiah come to Earth?";
+                        choice_3a.innerHTML = "Wovoka";
+                        choice_3b.innerHTML = "Sitting Bull";
+                        choice_3c.innerHTML = "McLaughlin";
+
+                        Q4_prompt.innerHTML = "Shooting broke out, precipitating the events that followed at";
+                        choice_4a.innerHTML = "the Alamo.";
+                        choice_4b.innerHTML = "Broken Rock.";
+                        choice_4c.innerHTML = "Wounded Knee.";
+
+                        startTime = new Date();
+
+                        break;
+
+                    case "L2":
+
+                        var level_value = level_select.value;
+                        level_p.innerHTML += level_value;
+                        level = parseInt( level_value[level_value.length - 1] );
+
+                        words = wordCount(L2_innerHTML);
+                        words_p.innerHTML += words;
+
+                        readingText_p.style.color = "black";
+                        readingText_p.innerHTML = L2_innerHTML;
+
+                        start_btn.disabled = true;
+                        start_btn.style.color = "gray";
+                        start_btn.style.cursor = "not-allowed";
+
+                        level_select.disabled = true;
+                        level_select.style.color = "gray";
+                        level_select.style.cursor = "not-allowed";
+
+                        age_select.disabled = true;
+                        age_select.style.color = "gray";
+                        age_select.style.cursor = "not-allowed";
+
+                        done_btn.disabled = false;
+                        done_btn.style.color = "black";
+                        done_btn.style.cursor = "pointer";
+
+                        cancel_btn.disabled = false;
+                        cancel_btn.style.color = "black";
+                        cancel_btn.style.cursor = "pointer";
+
+                        Q1_prompt.innerHTML = "Dean Kamen is an American inventor who holds over ________ patents.";
+                        choice_1a.innerHTML = "25";
+                        choice_1b.innerHTML = "35";
+                        choice_1c.innerHTML = "45";
+
+                        Q2_prompt.innerHTML = "An intravascular stent";
+                        choice_2a.innerHTML = "holds open blocked artieries.";
+                        choice_2b.innerHTML = "is used during an angioplasty";
+                        choice_2c.innerHTML = "regulates heartbeat";
+
+                        Q3_prompt.innerHTML = "The wheelchair that uses gyroscopes and computers is known as";
+                        choice_3a.innerHTML = "GyroBot.";
+                        choice_3b.innerHTML = "iBot.";
+                        choice_3c.innerHTML = "iteroScope.";
+
+                        Q4_prompt.innerHTML = "FIRST has a yearly";
+                        choice_4a.innerHTML = "robot competition.";
+                        choice_4b.innerHTML = "science fair.";
+                        choice_4c.innerHTML = "inventor's day.";
+
+                        startTime = new Date();
+
+                        break;
+
+                    case "L3":
+
+                        var level_value = level_select.value;
+                        level_p.innerHTML += level_value;
+                        level = parseInt( level_value[level_value.length - 1] );
+
+                        words = wordCount(L3_innerHTML);
+                        words_p.innerHTML += words;
+
+                        readingText_p.style.color = "black";
+                        readingText_p.innerHTML = L3_innerHTML;
+
+                        start_btn.disabled = true;
+                        start_btn.style.color = "gray";
+                        start_btn.style.cursor = "not-allowed";
+
+                        level_select.disabled = true;
+                        level_select.style.color = "gray";
+                        level_select.style.cursor = "not-allowed";
+
+                        age_select.disabled = true;
+                        age_select.style.color = "gray";
+                        age_select.style.cursor = "not-allowed";
+
+                        done_btn.disabled = false;
+                        done_btn.style.color = "black";
+                        done_btn.style.cursor = "pointer";
+
+                        cancel_btn.disabled = false;
+                        cancel_btn.style.color = "black";
+                        cancel_btn.style.cursor = "pointer";
+
+                        Q1_prompt.innerHTML = "A theremin is a musical intstrument, one based on the theory of";
+                        choice_1a.innerHTML = "patterned frequencies.";
+                        choice_1b.innerHTML = "beat frequencies.";
+                        choice_1c.innerHTML = "pitch.";
+
+                        Q2_prompt.innerHTML = "A theremin uses an electronic oscillator to produce a[n]";
+                        choice_2a.innerHTML = "audible tone";
+                        choice_2b.innerHTML = "time lag";
+                        choice_2c.innerHTML = "stable reference tone";
+
+                        Q3_prompt.innerHTML = "Theremin was originally trained as a(n)";
+                        choice_3a.innerHTML = "engineer";
+                        choice_3b.innerHTML = "musician ";
+                        choice_3c.innerHTML = "physicist";
+
+                        Q4_prompt.innerHTML = "Theremin was granted a U.S. patent in";
+                        choice_4a.innerHTML = "1919.";
+                        choice_4b.innerHTML = "1928.";
+                        choice_4c.innerHTML = "1932.";
+
+                        startTime = new Date();
+
+                        break;
+
+                    default:
+
+                        readingText_p.style.color = "red";
+                        break;
+
+                }
+
+            } else {
+                readingText_p.style.color = "red";
+            }
+
+            readingText_p.scrollIntoView();
+
+        }
+
+        function done() {
+
+            doneTime = new Date();
+            elapsedTime = doneTime - startTime;
+            wordsPerMinute(words, elapsedTime);
+
+            done_btn.disabled = true;
+            done_btn.style.color = "gray";
+            done_btn.style.cursor = "not-allowed";
+
+            cancel_btn.disabled = true;
+            cancel_btn.style.color = "gray";
+            cancel_btn.style.cursor = "not-allowed";
+
+            readingText_p.innerHTML = doneReading_innerHTML;
+
+            quiz_div.style.display = "block";
+            quiz_div.hidden = false;
+
+            quiz_div.scrollIntoView();
+
+        }
+
+        function reload() {
+            location.reload();
+        }
+
+        function wordCount(str) {
+            return wordCountCalc(str);
+        }
+
+        function wordCountCalc(str) {
+
+            str = str.replace(/(^\s*)|(\s*$)/gi,"");
+	        str = str.replace(/[ ]{2,}/gi," ");
+            str = str.replace(/\n /,"\n");
+
+            var wc = (str.split(' ').length) + (doubleSpaceCount(str) - breakCount(str));
+            
+            if (breakCount(str) > 0) {
+                wc += 1;
+            }
+
+            return wc
+
+        }
+
+        function doubleSpaceCount(str) {
+            return (str.match(/\u00A0\u00A0/g) || []).length;
+        }
+
+        function breakCount(str) {
+            return (str.match(/<br><br>/g) || []).length;
+        }
+
+        function wordsPerMinute(wordCount, milliseconds) {
+
+            time_long = parseFloat( parseFloat(milliseconds) / 60000.0 );
+            minutes = parseInt(Math.floor(time_long));
+            seconds_long = parseFloat(time_long % 1);
+
+            time = parseFloat( Math.round(time_long * 100) / 100 ).toFixed(2);
+            seconds = parseInt( Math.floor( parseFloat(seconds_long * 60.0) ) );
+
+            if (minutes == 1) {
+                time_p.innerHTML += minutes + " minute";
+            } else if (minutes != 0) {
+                time_p.innerHTML += minutes + " minutes";
+            }
+
+            if (seconds == 1) {
+                time_p.innerHTML += " " + seconds + " second";
+            } else if (seconds != 0) {
+                time_p.innerHTML += " " + seconds + " seconds";
+            }
+
+            time_p.innerHTML += " (" + time + " minutes)";
+
+            wpm_long = parseFloat( parseFloat(wordCount) / time );
+            wpm = parseInt(Math.floor(wpm_long));
+            wpm_p.innerHTML += wpm + " wpm";
+
+        }
+
+        function areAllChecked() {
+
+            if ( isOneChecked(quiz_radio_1) && isOneChecked(quiz_radio_2) && isOneChecked(quiz_radio_3) && isOneChecked(quiz_radio_4) ) {
+                submit_btn.disabled = false;
+                submit_btn.style.color = "black";
+                submit_btn.style.cursor = "pointer";
+
+            }
+
+        }
+
+        function isOneChecked(quiz_radio) {
+
+            for (var i = 0; i < quiz_radio.length; i++) {
+
+                if (quiz_radio[i].checked) {
+                    return true;
+                }
+
+            }
+
+            return false;
+
+        }
+
+        function checkAnswers() {
+
+            correct = 0;
+
+            var Q1_selected = document.querySelector('input[name = "1"]:checked');
+            var Q2_selected = document.querySelector('input[name = "2"]:checked');
+            var Q3_selected = document.querySelector('input[name = "3"]:checked');
+            var Q4_selected = document.querySelector('input[name = "4"]:checked');
+
+            var Q1_selectedText = "choice_" + Q1_selected.id;
+            var Q2_selectedText = "choice_" + Q2_selected.id;
+            var Q3_selectedText = "choice_" + Q3_selected.id;
+            var Q4_selectedText = "choice_" + Q4_selected.id;
+
+            var Q1_selectedLetter = Q1_selectedText + "_letter";
+            var Q2_selectedLetter = Q2_selectedText + "_letter";
+            var Q3_selectedLetter = Q3_selectedText + "_letter";
+            var Q4_selectedLetter = Q4_selectedText + "_letter";
+
+            document.getElementById(Q1_selectedLetter).style.color = "red";
+            document.getElementById(Q1_selectedText).style.color = "red";
+
+            document.getElementById(Q2_selectedLetter).style.color = "red";
+            document.getElementById(Q2_selectedText).style.color = "red";
+
+            document.getElementById(Q3_selectedLetter).style.color = "red";
+            document.getElementById(Q3_selectedText).style.color = "red";
+
+            document.getElementById(Q4_selectedLetter).style.color = "red";
+            document.getElementById(Q4_selectedText).style.color = "red";
+
+            switch (level_select.value) {
+
+                case "L1":
+
+                    correctToGreen(L1_answers);
+                    
+                    if (Q1_selected.value == L1_answers[0]) {
+                        correct = correct + 1;
+                    }
+
+                    if (Q2_selected.value == L1_answers[1]) {
+                        correct = correct + 1;
+                    }
+
+                    if (Q3_selected.value == L1_answers[2]) {
+                        correct = correct + 1;
+                    }
+
+                    if (Q4_selected.value == L1_answers[3]) {
+                        correct = correct + 1;
+                    }
+
+                    break;
+
+                case "L2":
+
+                    correctToGreen(L2_answers);
+
+                    if (Q1_selected.value == L2_answers[0]) {
+                        correct = correct + 1;
+                    }
+
+                    if (Q2_selected.value == L2_answers[1]) {
+                        correct = correct + 1;
+                    }
+
+                    if (Q3_selected.value == L2_answers[2]) {
+                        correct = correct + 1;
+                    }
+
+                    if (Q4_selected.value == L2_answers[3]) {
+                        correct = correct + 1;
+                    }
+
+                    break;
+
+                case "L3":
+
+                    correctToGreen(L3_answers);
+
+                    if (Q1_selected.value == L3_answers[0]) {
+                        correct = correct + 1;
+                    }
+
+                    if (Q2_selected.value == L3_answers[1]) {
+                        correct = correct + 1;
+                    }
+
+                    if (Q3_selected.value == L3_answers[2]) {
+                        correct = correct + 1;
+                    }
+
+                    if (Q4_selected.value == L3_answers[3]) {
+                        correct = correct + 1;
+                    }
+
+                    break;
+
+            }
+
+            disableRadios()
+
+            submit_btn.disabled = true;
+            submit_btn.style.color = "gray";
+            submit_btn.style.cursor = "not-allowed";
+
+            percentCorrect = parseFloat( parseFloat(correct) / 4.0 );
+            correct_p.innerHTML += parseInt(percentCorrect * 100) + "%";
+
+            ewpm_long = parseFloat( parseFloat(wpm) * percentCorrect );
+            ewpm = parseInt(Math.floor(ewpm_long));
+            ewpm_p.innerHTML += ewpm + " ewpm";
+
+            addToDB();
+
+        }
+
+        function correctToGreen(answers) {
+
+            for (var i = 0; i < quiz_radio_1.length; i++) {
+
+                if (quiz_radio_1[i].value == answers[0]) {
+                    
+                    var Q1_correctID = quiz_radio_1[i].id;
+                    var Q1_correctText = "choice_" + Q1_correctID;
+                    var Q1_correctLetter = Q1_correctText + "_letter";
+
+                    document.getElementById(Q1_correctLetter).style.color = "green";
+                    document.getElementById(Q1_correctText).style.color = "green";
+
+                }
+
+            }
+
+            for (var i = 0; i < quiz_radio_2.length; i++) {
+
+                if (quiz_radio_2[i].value == answers[1]) {
+                    
+                    var Q2_correctID = quiz_radio_2[i].id;
+                    var Q2_correctText = "choice_" + Q2_correctID;
+                    var Q2_correctLetter = Q2_correctText + "_letter";
+
+                    document.getElementById(Q2_correctLetter).style.color = "green";
+                    document.getElementById(Q2_correctText).style.color = "green";
+
+                }
+
+            }
+
+            for (var i = 0; i < quiz_radio_3.length; i++) {
+
+                if (quiz_radio_3[i].value == answers[2]) {
+                    
+                    var Q3_correctID = quiz_radio_3[i].id;
+                    var Q3_correctText = "choice_" + Q3_correctID;
+                    var Q3_correctLetter = Q3_correctText + "_letter";
+
+                    document.getElementById(Q3_correctLetter).style.color = "green";
+                    document.getElementById(Q3_correctText).style.color = "green";
+
+                }
+
+            }
+
+            for (var i = 0; i < quiz_radio_4.length; i++) {
+
+                if (quiz_radio_4[i].value == answers[3]) {
+                    
+                    var Q4_correctID = quiz_radio_4[i].id;
+                    var Q4_correctText = "choice_" + Q4_correctID;
+                    var Q4_correctLetter = Q4_correctText + "_letter";
+
+                    document.getElementById(Q4_correctLetter).style.color = "green";
+                    document.getElementById(Q4_correctText).style.color = "green";
+
+                }
+
+            }
+
+        }
+
+        function disableRadios() {
+
+            for (var i = 0; i < quiz_radio_1.length; i++) {
+
+                var curRadio = quiz_radio_1[i];
+                
+                curRadio.disabled = true;
+                curRadio.style.color = "gray";
+                curRadio.style.cursor = "not-allowed";
+
+            }
+
+            for (var i = 0; i < quiz_radio_2.length; i++) {
+
+                var curRadio = quiz_radio_2[i];
+                
+                curRadio.disabled = true;
+                curRadio.style.color = "gray";
+                curRadio.style.cursor = "not-allowed";
+
+            }
+
+            for (var i = 0; i < quiz_radio_3.length; i++) {
+
+                var curRadio = quiz_radio_3[i];
+                
+                curRadio.disabled = true;
+                curRadio.style.color = "gray";
+                curRadio.style.cursor = "not-allowed";
+            }
+
+            for (var i = 0; i < quiz_radio_4.length; i++) {
+
+                var curRadio = quiz_radio_4[i];
+                
+                curRadio.disabled = true;
+                curRadio.style.color = "gray";
+                curRadio.style.cursor = "not-allowed";
+            }
+
+        }
+
+        function getData() {
+
+            $.ajax({
+
+                type: "post",
+                url: select_php,
+                success: function(data) {
+
+                    var data_arr = data.split(" ");
+                    
+                    collected_p.innerHTML += data_arr[0];
+                    age_mode_p.innerHTML += data_arr[1];
+                    wpm_avg_p.innerHTML += data_arr[2] + " wpm";
+                    comprehension_avg_p.innerHTML += parseInt(data_arr[3] * 100) + "%";
+                    ewpm_avg_p.innerHTML += data_arr[4] + " ewpm";
+
+                    results_div.hidden = false;
+                    results_div.scrollIntoView();
+
+                }
+
+            });
+
+        }
+
+        function addToDB() {
+
+            var d = { level: level, age: age, words: words, time: time, wpm: wpm, percentCorrect: percentCorrect, ewpm: ewpm };
+
+            $.ajax({
+
+                data: d,
+                dataType: "json",
+                type: "post",
+                url: insert_php,
+                success: function(data) {
+                    console.log("Successful connection to insert.php");
+                }
+
+            });
+
+            getData();
+
+        }
+
+    </script>
+
+</head>
+
+<body id="main_body">
+
+    <h1>
+        Reading Speed and Comprehension
+    </h1>
+
+    <h2>
+        Instructions
+    </h2>
+
+    <ul>
+
+            <li>This tool determines your reading speed and comprehension using leveled reading comprehension tests</li>
+            <li>To begin, select the <i>Text Complexity Level</i> and your <i>Age</i>, then click on the <b>Start</b> button</li>
+            <li>When you are finished reading, click the <b>Done</b> button</li>
+            <li><u>Do not skim or speed read</u>, you should read at the pace that you normally would</li>
+            <li>If you would like to start over, click the <b>Cancel</b> button</li>
+            <li>After you have finished reading, a short quiz regarding the previously read text will be administered</li>
+            <li>When the quiz is completed, your reading speed and comprehension will be displayed</li>
+
+    </ul>
+
+    <h2>
+        Notes
+    </h2>
+
+    <ul>
+
+        <li>For the best results and for the purpose of analysis: <u>read at your own personal average pace</u>, click the <b>Done</b> button <u>as soon as you are finished reading</u> the text, and <u>answer the quiz questions to your best ability</u></li>
+        <li>For us to aggregate the most accurate and complete data, <u>please attempt all three text complexity levels if possible</u></li>
+        <li><u>Please complete the quiz in full</u> and <u><b>do not</b> re-read the previously read text to assist in answering the questions</u></li>
+
+    </ul>
+
+    <h2>
+        Disclaimer
+    </h2>
+
+    <ul>
+
+        <li><b>This tool records and stores result data</b></li>
+        <li><b>Only the data that is shown in the results is recorded (age, text complexity level, words, reading duration, words per minute, comprehension rate, efficient words per minute) as well as date and time information</b><br />
+        <li><b>No directly identifying information will be recorded as a result of using this tool (e.g. name, location)</b></li>
+        <li><b>The main purpose of this analysis is to calculate an estimated average for reading speed and comprehension of web articles</b></li>
+
+    </ul>
+
+    <div id="levelAgeSelects_div">
+
+        <select id="level_select" class="half left" enabled>
+
+                <option selected disabled>Text Complexity Level</option>
+                <option value="L1">Level 1</option>
+                <option value="L2">Level 2</option>
+                <option value="L3">Level 3</option>
+        
+        </select>
+        
+        <select id="age_select" class="13-99 half right">
+            <option value="NONE" selected disabled>Age</option>
+        </select>
+
+    </div>
+
+    <br><br>
+
+    <button id="start_btn" class="full" enabled onclick="start();">Start</button>
+
+    <br>
+
+    <div id="readingText_div">
+        <p id="readingText_p" style="color:black;">Select the <i>Text Complexity Level</i> and your <i>Age</i>, then click on the <b>Start</b> button above.</p>
+    </div>
+
+    <br>
+
+    <div id="doneClearBtns_div" class="side-by-side">
+
+        <button id="done_btn" class="half left disabled" disabled onclick="done();">Done</button>
+        <button id="cancel_btn" class="half right disabled" disabled onclick="reload();">Cancel</button>
+
+    </div>
+
+    <br>
+
+    <div id="quiz_div" hidden>
+
+        <div id="Q1" class="question">
+
+            <div id="Q1_number" class="question_number">1.</div>
+            <div id="Q1_prompt" class="question_prompt"></div>
+
+            <div id="choice_1a_content" class="choice_content">
+
+                <input type="radio" id="1a" name="1" value="a" onclick="areAllChecked();">
+                <div id="choice_1a_letter" class="choice_letter">A)</div>
+                <div id="choice_1a" class="choice"></div>
+
+            </div>
+
+            <div id="choice_1b_content" class="choice_content">
+
+                <input type="radio" id="1b" name="1" value="b" onclick="areAllChecked();">
+                <div id="choice_1b_letter" class="choice_letter">B)</div>
+                <div id="choice_1b" class="choice"></div>
+    
+            </div>
+
+            <div id="choice_1c_content" class="choice_content">
+
+                <input type="radio" id="1c" name="1" value="c" onclick="areAllChecked();">
+                <div id="choice_1c_letter" class="choice_letter">C)</div>
+                <div id="choice_1c" class="choice"></div>
+    
+            </div>
+
+        </div>
+
+        <br>
+
+        <div id="Q2" class="question">
+
+            <div id="Q2_number" class="question_number">2.</div>
+            <div id="Q2_prompt" class="question_prompt"></div>
+
+            <div id="choice_2a_content" class="choice_content">
+
+                <input type="radio" id="2a" name="2" value="a" onclick="areAllChecked();">
+                <div id="choice_2a_letter" class="choice_letter">A)</div>
+                <div id="choice_2a" class="choice"></div>
+
+            </div>
+
+            <div id="choice_2b_content" class="choice_content">
+
+                <input type="radio" id="2b" name="2" value="b" onclick="areAllChecked();">
+                <div id="choice_2b_letter" class="choice_letter">B)</div>
+                <div id="choice_2b" class="choice"></div>
+    
+            </div>
+
+            <div id="choice_2c_content" class="choice_content">
+
+                <input type="radio" id="2c" name="2" value="c" onclick="areAllChecked();">
+                <div id="choice_2c_letter" class="choice_letter">C)</div>
+                <div id="choice_2c" class="choice"></div>
+    
+            </div>
+
+        </div>
+
+        <br>
+
+        <div id="Q3" class="question">
+
+            <div id="Q3_number" class="question_number">3.</div>
+            <div id="Q3_prompt" class="question_prompt"></div>
+
+            <div id="choice_3a_content" class="choice_content">
+
+                <input type="radio" id="3a" name="3" value="a" onclick="areAllChecked();">
+                <div id="choice_3a_letter" class="choice_letter">A)</div>
+                <div id="choice_3a" class="choice"></div>
+
+            </div>
+
+            <div id="choice_3b_content" class="choice_content">
+
+                <input type="radio" id="3b" name="3" value="b" onclick="areAllChecked();">
+                <div id="choice_3b_letter" class="choice_letter">B)</div>
+                <div id="choice_3b" class="choice"></div>
+    
+            </div>
+
+            <div id="choice_3c_content" class="choice_content">
+
+                <input type="radio" id="3c" name="3" value="c" onclick="areAllChecked();">
+                <div id="choice_3c_letter" class="choice_letter">C)</div>
+                <div id="choice_3c" class="choice"></div>
+    
+            </div>
+
+        </div>
+
+        <br>
+
+        <div id="Q4" class="question">
+
+            <div id="Q4_number" class="question_number">4.</div>
+            <div id="Q4_prompt" class="question_prompt"></div>
+
+            <div id="choice_4a_content" class="choice_content">
+
+                <input type="radio" id="4a" name="4" value="a" onclick="areAllChecked();">
+                <div id="choice_4a_letter" class="choice_letter">A)</div>
+                <div id="choice_4a" class="choice"></div>
+
+            </div>
+
+            <div id="choice_4b_content" class="choice_content">
+
+                <input type="radio" id="4b" name="4" value="b" onclick="areAllChecked();">
+                <div id="choice_4b_letter" class="choice_letter">B)</div>
+                <div id="choice_4b" class="choice"></div>
+    
+            </div>
+
+            <div id="choice_4c_content" class="choice_content">
+
+                <input type="radio" id="4c" name="4" value="c" onclick="areAllChecked();">
+                <div id="choice_4c_letter" class="choice_letter">C)</div>
+                <div id="choice_4c" class="choice"></div>
+    
+            </div>
+    
+        </div>
+
+        <br>
+
+        <button id="submit_btn" class="full disabled" onclick="checkAnswers();" disabled>Submit and View Results</button>
+
+    </div>
+
+    <br>
+
+    <div id="results_div" hidden>
+
+        <h2>
+            Results
+        </h2>
+
+        <p>Click <a href="#quiz_div">here</a> to see the direct results from the comprehension quiz.</p>
+
+        <h3 id="age_p">
+            Age: 
+        </h3>
+
+        <h3 id="level_p">
+            Text Complexity Level: 
+        </h3>
+
+        <h3 id="words_p">
+            Words: 
+        </h3>
+
+        <h3 id="time_p">
+            Reading Duration: 
+        </h3>
+
+        <h3 id="wpm_p">
+            Words per Minute: 
+        </h3>
+
+        <h3 id="correct_p">
+            Questions Answered Correctly (Comprehension Rate): 
+        </h3>
+
+        <h3 id="ewpm_p">
+            Efficient Words per Minute: 
+        </h3>
+
+        <p>
+            ewpm = wpm * comprehension rate
+        </p>
+
+        <br>
+
+        <h3>Average Data</h3>
+
+        <h4>
+            Average Words per Minute: 200 wpm
+        </h4>
+
+        <h4>
+            Average Comprehension Rate: 60%
+        </h4>
+
+        <h4>
+            Average Efficient Words per Minute: 120 ewpm
+        </h4>
+
+        <br>
+
+        <h3>
+            Collected Data
+        </h3>
+
+        <h4 id="collected_p">
+            Collected Entries: 
+        </h4>
+
+        <h4 id="age_mode_p">
+            Collected Most Common Age: 
+        </h4>
+
+        <h4 id="wpm_avg_p">
+            Collected Average Words per Minute: 
+        </h4>
+
+        <h4 id="comprehension_avg_p">
+            Collected Average Comprehension Rate: 
+        </h4>
+
+        <h4 id="ewpm_avg_p">
+            Collected Average Efficient Words per Minute: 
+        </h4>
+
+        <br>
+
+        <h2>
+            Thank you for using this tool, we appreciate your time!
+        </h2>
+
+        <p>
+            If you do not mind, please complete a quick feedback form found using <a href="https://goo.gl/forms/JimNZFj7HipM865Y2" target="_blank">this link</a>.  Thank you!
+        </p>
+
+    </div>
+
+    </body>
+
+</html>
